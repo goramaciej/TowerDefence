@@ -37,7 +37,7 @@ public class EditorSnap : MonoBehaviour
         Vector2Int waypointPosition = waypoint.GetPosition();
         int gridSize = waypoint.GetGridSize();
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
-        textMesh.text = (waypointPosition.x / gridSize).ToString() + "," + (waypointPosition.y / gridSize).ToString();
+        textMesh.text = (waypointPosition.x / gridSize).ToString() + "," + (waypointPosition.y  / gridSize).ToString();
         gameObject.name = "Cube (" + textMesh.text + ")";
     }
 }
