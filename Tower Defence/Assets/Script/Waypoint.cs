@@ -16,4 +16,27 @@ public class Waypoint : MonoBehaviour
         Mathf.RoundToInt(transform.position.x / gridSize) * gridSize,
         Mathf.RoundToInt(transform.position.z / gridSize) * gridSize);
     }
+    public void SetTopColor(Color color) {
+        /*foreach (Transform wall in GetComponentsInChildren<Transform>()) {
+            MeshRenderer myMesh = wall.GetComponent<MeshRenderer>();
+            myMesh.material.color = Color.white;
+        }*/
+        MeshRenderer[] childTransforms = GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer T in childTransforms) {
+            GameObject go = T.gameObject;
+            MeshRenderer myMesh = T.gameObject.GetComponent<MeshRenderer>();
+            myMesh.material.color = Color.white;
+        }
+
+        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = color;
+    }
+    public void colorStart() {
+        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = Color.green;
+    }
+    public void colorEnd() {
+        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = Color.red;
+    }
 }

@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70ee42ae6fa1abc4f94072fa8d19a070, type: 2}
+  - {fileID: 2100000, guid: 237894222d773e34895e8d2fcdc1fd4c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 5574447625747987156}
   - component: {fileID: 1287100519}
   m_Layer: 0
-  m_Name: CubePrefab
+  m_Name: Cube (0,0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,7 +419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf8de2efcee8bb4b8cf4f652b537040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 10
 --- !u!114 &1287100519
 MonoBehaviour:
   m_ObjectHideFlags: 0
