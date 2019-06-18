@@ -4,11 +4,31 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+    [SerializeField] public Waypoint exploredFrom;
+    [SerializeField] private Color exploredColor;
+    [SerializeField] private Color pathColor;
+
+    public bool beenExplored = false;
+
+
     Vector2Int gridPos;
     const int gridSize = 10;
-        
+
+    private MeshRenderer topMeshRenderer;
+
+    public void Awake() {
+        topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+    }
+
     public int GetGridSize() {
         return gridSize;
+    }
+
+    public void SetExplorationSource(Waypoint explorationSource) {
+        if (!exploredFrom) {
+            exploredFrom = explorationSource;
+        }
+
     }
 
     public Vector2Int GetPosition() {
@@ -28,15 +48,19 @@ public class Waypoint : MonoBehaviour
             myMesh.material.color = Color.white;
         }
 
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
         topMeshRenderer.material.color = color;
     }
-    public void colorStart() {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+    public void ColorOnExploration() {
+        topMeshRenderer.material.color = exploredColor;
+    }
+    public void ColorPath() {
+        topMeshRenderer.material.color = pathColor;
+    }
+
+    public void ColorStart() {
         topMeshRenderer.material.color = Color.green;
     }
-    public void colorEnd() {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+    public void ColorEnd() {
         topMeshRenderer.material.color = Color.red;
     }
 }

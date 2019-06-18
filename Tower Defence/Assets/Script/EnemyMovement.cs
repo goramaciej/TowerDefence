@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
-    [SerializeField] List<Waypoint> blockList;
     [SerializeField] float duration = 1f;
     [SerializeField] AnimationCurve curve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
+
+    private List<Waypoint> blockList;
 
     private int currentStep = 0;
     private Vector3 currentStartPosition;
@@ -16,14 +17,21 @@ public class EnemyMovement : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {        
-        transform.position = blockList[0].transform.position;
+        
     }
+
+    public void StartMove(List<Waypoint> waypoints) {
+        blockList = waypoints;
+        transform.position = blockList[0].transform.position;
+        StartCoroutine(FollowPath());
+    }
+
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)){
+        /*if (Input.GetKeyDown(KeyCode.Space)){
             StartCoroutine(FollowPath());
-        }
+        }*/
 
         if (isAnimating) {
             time += Time.deltaTime;

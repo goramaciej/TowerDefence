@@ -11,7 +11,7 @@ public class CubeEditor : MonoBehaviour
      //waypoint;
 
     private void Awake() {
-        Debug.Log("EditorSnapAwaken");
+        //Debug.Log("EditorSnapAwaken");
         //Debug.Log("EditorSnap: " + waypoint);
     }
 
