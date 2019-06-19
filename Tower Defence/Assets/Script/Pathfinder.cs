@@ -12,7 +12,7 @@ public class Pathfinder : MonoBehaviour
 
     bool initialPathfindingIsRunning = true;
 
-    private List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] private List<Waypoint> path = new List<Waypoint>();
     
     // Start is called before the first frame update
     void Start(){
@@ -21,20 +21,17 @@ public class Pathfinder : MonoBehaviour
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.R)) {
-            FindPath();
+            GetPath();
         }
     }
 
-    private void FindPath() {
-        Debug.Log("Finding Path from Pathfinder");
+    public List<Waypoint> GetPath() {
         LoadBlocks();
         ColorStartAndEndCube();
         Pathfind();
-        ColorMyPathFromEnd();
-        //ExploreNeighboors();
+        CreatePath();
+        return path;
     }
-
-
 
     /// <summary>
     /// Find all objects of type Waypoint and add them to grid dictionary, furthermore avoid duplicating elements.
@@ -75,32 +72,23 @@ public class Pathfinder : MonoBehaviour
             HoldWhenEndFound();
             ExploreNeighboors();
         }
-        //Debug.Log("Pathfind finished");
     }
 
-    private void ColorMyPathFromEnd() {
-        bool coloringPathState = true;
+    private void CreatePath() {
         Waypoint currentCheckingWaypoint = endWaypoint;
-        /*for (var i = 0; i<10; i++) {
-            
-            if (currentCheckingWaypoint == startWaypoint) {
-                break;
-            }
-        }*/
+
         while(currentCheckingWaypoint != startWaypoint) {
             path.Add(currentCheckingWaypoint);
             currentCheckingWaypoint.ColorPath();
             currentCheckingWaypoint = currentCheckingWaypoint.exploredFrom;
         }
+        path.Add(startWaypoint);
 
-        // REVERSE LIST
-        List<Waypoint> tempList = new List<Waypoint>();
-        for (int i = path.Count-1; i > -1; i--) {
-            tempList.Add(path[i]);
-        }
+        
+        path.Reverse();
 
-        EnemyMovement myEnemy = FindObjectOfType<EnemyMovement>();
-        myEnemy.StartMove(tempList);
+        /* EnemyMovement myEnemy = FindObjectOfType<EnemyMovement>();
+        myEnemy.StartMove(path); */
     }
 
     private void HoldWhenEndFound() {
@@ -115,18 +103,15 @@ public class Pathfinder : MonoBehaviour
         foreach(Vector2Int dir in directions) {
             //Debug.Log(startWaypoint.GetPosition() + dir);
             Vector2Int neighbourCoordinates = searchCenter.GetPosition() + dir;
-            try {
+            if (grid.ContainsKey(neighbourCoordinates)) {
                 QueueNewNeighbour(neighbourCoordinates);
-            } catch {
-
             }
         }
     }
+
     private void QueueNewNeighbour(Vector2Int neighbourCoordinates) {
         Waypoint neighbour = grid[neighbourCoordinates];
         if (!neighbour.beenExplored || !queue.Contains(neighbour)) {
-            //neighbour.SetTopColor(Color.magenta);
-            //neighbour.exploredFrom = searchCenter;
             neighbour.SetExplorationSource(searchCenter);
             queue.Enqueue(neighbour);
         }

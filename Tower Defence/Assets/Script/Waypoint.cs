@@ -10,18 +10,12 @@ public class Waypoint : MonoBehaviour
 
     public bool beenExplored = false;
 
-
     Vector2Int gridPos;
-    const int gridSize = 10;
 
     private MeshRenderer topMeshRenderer;
 
     public void Awake() {
         topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-    }
-
-    public int GetGridSize() {
-        return gridSize;
     }
 
     public void SetExplorationSource(Waypoint explorationSource) {
@@ -33,8 +27,8 @@ public class Waypoint : MonoBehaviour
 
     public Vector2Int GetPosition() {
         return new Vector2Int(
-        Mathf.RoundToInt(transform.position.x / gridSize),
-        Mathf.RoundToInt(transform.position.z / gridSize));
+        Mathf.RoundToInt(transform.position.x / 10),
+        Mathf.RoundToInt(transform.position.z / 10));
     }
     public void SetTopColor(Color color) {
         /*foreach (Transform wall in GetComponentsInChildren<Transform>()) {
