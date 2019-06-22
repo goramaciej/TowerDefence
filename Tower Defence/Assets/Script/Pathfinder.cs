@@ -19,12 +19,6 @@ public class Pathfinder : MonoBehaviour
         //FindPath();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
-            GetPath();
-        }
-    }
-
     public List<Waypoint> GetPath() {
         LoadBlocks();
         ColorStartAndEndCube();
